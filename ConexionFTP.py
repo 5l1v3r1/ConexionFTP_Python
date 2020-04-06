@@ -10,7 +10,7 @@ from ftplib import FTP
 def TestConexionFTP(server,user,password):
     # Instanciamos FTP
     try:
-        test = FTP(servidor);  
+        test = FTP(server);  
         #Logearse
         test.login(user,password);      # UserName #Password
         test.quit();                    # Cierra conexión
