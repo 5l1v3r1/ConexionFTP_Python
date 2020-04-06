@@ -18,3 +18,36 @@ def TestConexionFTP(server,user,password):
     except:
         return False;         
 
+def UpLoadfileFTP(server,user,password,pathFileLocal,pathFileFTP,fileName):
+    # CREA UN ARCHIVO EN EL SERVIDOR
+    # Argument[0] = Nombre del Archivo, ejemplo "file.txt"
+    # Argument[1] = -rw-r--r-- drwxr-xr-x
+    #               w = write
+    #               r = read    
+    #               rb = ¿? 
+    
+    # Si la conexión falla, no continuar con ésta función
+    if TestConexionFTP(server,user,password) == False:
+        return False;
+    else:
+        # Conectando con el servidor   
+        conexion = FTP(server);  
+        #Logearse
+        conexion.login(user,password);
+
+        # La ruta de la carpeta donde queremos subir el archivo
+        conexion.cwd(pathFileFTP);
+
+        # Intenta subir archivo
+        try:
+            file = open(pathFile+fileName, "rb");
+
+            conexion.storbinary("STOR "+fileName,file);
+            file.close();
+
+            conexion.quit();
+
+            return True;
+        except:
+            return False;
+
