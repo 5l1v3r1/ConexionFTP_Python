@@ -31,6 +31,7 @@ def CreateFile():
         #Logearse
         conexion.login(user,password);      # UserName #Password
         conexion.retrlines("LIST");
+        conexion.cwd("htdocs");
         file = open("FTP.txt", "w");
     
         # éste método escribe dentro del archivo 
@@ -74,21 +75,19 @@ def DownloadFileFTP():
 
 
 
-#print("El resultado fue: "+ str(DownloadFileFTP()));
+print("El resultado fue: "+ str(CreateFile()));
 
 
-    """
-    conexion = FTP(servidor);  
-    #Logearse
-    conexion.login(user,password); 
-    # Muestra un listado de los archivos
-    conexion.cwd("htdocs")
-    conexion.retrlines("LIST");
-
-    if(CreateFile()):
-        CreateFile();
-        print("el archivo fue creado exitosamente");
-    else:
-        print("Erro al crear el archivo");
-
-    """
+"""
+conexion = FTP(servidor);  
+#Logearse
+conexion.login(user,password); 
+# Muestra un listado de los archivos
+conexion.cwd("htdocs")
+conexion.retrlines("LIST");
+if(CreateFile()):
+    CreateFile();
+    print("el archivo fue creado exitosamente");
+else:
+    print("Erro al crear el archivo");
+"""
