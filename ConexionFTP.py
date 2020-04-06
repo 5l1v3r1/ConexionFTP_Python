@@ -65,7 +65,7 @@ def DownloadFileFTP():
         conexion.retrbinary("RETR FTP.txt",fileR.write);
         fileR.close();
         conexion.quit();
-        #return True;
+        #return True; 
         print("Exito");
     except:
         #return False;
