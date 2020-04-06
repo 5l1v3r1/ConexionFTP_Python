@@ -1,22 +1,25 @@
 from ftplib import FTP
 
 # Variables de conexión
-servidor = "ftpupload.netf";     # Dominio   // DominioName.com
-user = "epiz_25466257";
-password = "PzN8oatetZyxe";
+servidor = "ftpupload.net";     # Nombre del Dominio
+user = "epiz_25466257";         # Usuario
+password = "PzN8oatetZyxe";     # Contraseña
 
-#def ConexionTest():
-# Test the Conection
-try:
-    # Instanciamos FTP
-    conexion = FTP(servidor);  
+# Ésta función devolverá un True si la conexión fue exitosa o un False si hubo un error
+def ConexionTest():
+    # Test the Conexión
+    try:
+        # Instanciamos FTP
+        conexion = FTP(servidor);  
 
-    #Logearse
-    conexion.login(user,password);      # UserName #Password
-    print("[+] Conexión exitosa");
-except Exception as e:
-     print("[-] Error de Conexión"+ str(e));
+        #Logearse
+        conexion.login(user,password);      # UserName #Password
+        #print("[+] Conexión exitosa");
+        return True;                        # Retorna un True == Conexión Exitosa
+    except: #Exception as e:
+        #print("[-] Error de Conexión "); #+ str(e));
+        return False;                       # Retorna un False == Error de conexión
         
 
-#ConexionTest();
+print (str(ConexionTest()));
 
