@@ -36,13 +36,14 @@ def UpLoadfileFTP(server,user,password,pathFileLocal,pathFileFTP,fileName):
         conexion.login(user,password);
 
         # La ruta de la carpeta donde queremos subir el archivo
-        conexion.cwd(pathFileFTP);
+        if (pathFileFTP != ""):
+            conexion.cwd(pathFileFTP);
 
         # Intenta subir archivo
         try:
-            file = open(pathFile+fileName, "rb");
+            file = open(fileName, "rb"); #pathFileFTP+
 
-            conexion.storbinary("STOR "+fileName,file);
+            conexion.storbinary("STOR "+str(fileName), file);
             file.close();
 
             conexion.quit();
