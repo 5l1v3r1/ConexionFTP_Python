@@ -53,24 +53,23 @@ def CreateFile():
 
 
 # Descarga un archivo desde FTP y lo guarda en una direción especifica
-#def DownloadFileFTP():
-
-try:
-    conexion = FTP(servidor);
-    conexion.login(user,password);      # UserName #Password
-    conexion.cwd("htdocs");
-    conexion.retrlines("LIST");
-    # Descaargar el archivo a la nube
-    fileR = open("FTP.txt", "wb");
-    # Si se desea, puede cambiar de nombre
-    conexion.retrbinary("RETR FTP.txt",fileR.write);
-    fileR.close();
-    conexion.quit();
-    #return True;
-    print("Exito");
-except:
-    #return False;
-    print("Error");
+def DownloadFileFTP():
+    try:
+        conexion = FTP(servidor);
+        conexion.login(user,password);      # UserName #Password
+        conexion.cwd("htdocs");
+        conexion.retrlines("LIST");
+        # Descaargar el archivo a la nube
+        fileR = open("FTP.txt", "wb");
+        # Si se desea, puede cambiar de nombre
+        conexion.retrbinary("RETR FTP.txt",fileR.write);
+        fileR.close();
+        conexion.quit();
+        #return True;
+        print("Exito");
+    except:
+        #return False;
+        print("Error");
 
 
 
