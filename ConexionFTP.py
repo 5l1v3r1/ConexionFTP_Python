@@ -19,43 +19,77 @@ def ConexionTest():
         return False;                       # Retorna un False == Error de conexión
 
 # Crea un fichero
-def OpenFile():
+def CreateFile():
     # CREA UN ARCHIVO EN EL SERVIDOR
     # Argument[0] = Nombre del Archivo, ejemplo "file.txt"
     # Argument[1] = -rw-r--r-- drwxr-xr-x
     #               w = write
-    #               r = read           
+    #               r = read    
+    #               rb = ¿?       
     try:
-        file = open("htdocs/Prueba servidor FTP.txt", "w");
+        conexion = FTP(servidor);  
+        #Logearse
+        conexion.login(user,password);      # UserName #Password
+        conexion.retrlines("LIST");
+        file = open("FTP.txt", "w");
     
         # éste método escribe dentro del archivo 
-        file.writelines("Este exto aparecerá dentro de ese archivo1");
-        #file.writelines("Este exto aparecerá dentro de ese archivo2");
-        #file.write("Ver si estó aparece y en donde aparece wee");
+        file.writelines("Este texto aparecerá dentro de ese archivo1");
+        file.writelines("Este exto aparecerá dentro de ese archivo2");
+        file.write("Ver si estó aparece y en donde aparece wee");
         file.close();
+        
+        
+        # Subir el archivo a la nube
+        fileR = open("FTP.txt", "rb");
+        conexion.storbinary("STOR FTP.txt",fileR);
+        fileR.close();
+        
+        conexion.quit();
+
         return True;
     except:
         return False;
 
 
+# Descarga un archivo desde FTP y lo guarda en una direción especifica
+#def DownloadFileFTP():
+
+try:
+    conexion = FTP(servidor);
+    conexion.login(user,password);      # UserName #Password
+    conexion.cwd("htdocs");
+    conexion.retrlines("LIST");
+    # Descaargar el archivo a la nube
+    fileR = open("FTP.txt", "wb");
+    # Si se desea, puede cambiar de nombre
+    conexion.retrbinary("RETR FTP.txt",fileR.write);
+    fileR.close();
+    conexion.quit();
+    #return True;
+    print("Exito");
+except:
+    #return False;
+    print("Error");
 
 
-if ConexionTest():      # Si la conexión fue exitosa, continuar
+
+
+#print("El resultado fue: "+ str(DownloadFileFTP()));
+
+
+    """
     conexion = FTP(servidor);  
     #Logearse
     conexion.login(user,password); 
     # Muestra un listado de los archivos
-    #conexion.retrlines("LIST");
-    
-    if(OpenFile()):
+    conexion.cwd("htdocs")
+    conexion.retrlines("LIST");
+
+    if(CreateFile()):
+        CreateFile();
         print("el archivo fue creado exitosamente");
     else:
         print("Erro al crear el archivo");
 
-
-
-
-
-else:
-    print("Hubo un error en su conexión FTP, usted no puede continuar");
-
+    """
